@@ -63,4 +63,21 @@ public class BlockUCWBotanyGlass extends BlockUCWBotanyBase {
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 
     }
+
+    @Override
+    public void registerVariants(String groupName, IBlockState origState, List<ItemStack> stacks) {
+        List<ItemStack> grouping = new ArrayList<>();
+        grouping.add(new ItemStack(origState.getBlock()));
+        grouping.addAll(stacks);
+
+        for (EnumFlowerColor color : EnumFlowerColor.VALUES) {
+            String gn = groupName + "_" + color.ordinal();
+            for (ItemStack stack : grouping) {
+                stack = stack.copy();
+                stack.setTagCompound(new NBTTagCompound());
+                stack.getTagCompound().setInteger("meta", color.ordinal());
+                UCWCompatUtils.addChiselVariation(gn, stack);
+            }
+        }
+    }
 }

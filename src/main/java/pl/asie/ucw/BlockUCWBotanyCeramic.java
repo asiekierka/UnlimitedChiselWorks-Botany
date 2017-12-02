@@ -19,5 +19,33 @@
 
 package pl.asie.ucw;
 
+import binnie.botany.api.genetics.EnumFlowerColor;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockUCWBotanyCeramic extends BlockUCWBotanyBase {
+    @Override
+    public void registerVariants(String groupName, IBlockState origState, List<ItemStack> stacks) {
+        List<ItemStack> grouping = new ArrayList<>();
+        grouping.add(new ItemStack(origState.getBlock()));
+        grouping.addAll(stacks);
+
+        for (EnumFlowerColor color : EnumFlowerColor.VALUES) {
+            String gn = groupName + "_" + color.ordinal();
+            for (ItemStack stack : grouping) {
+                stack = stack.copy();
+                if (stack.getItem() instanceof ItemUCWBotanyBase) {
+                    stack.setTagCompound(new NBTTagCompound());
+                    stack.getTagCompound().setInteger("meta", color.ordinal());
+                } else {
+                    stack.setItemDamage(color.ordinal());
+                }
+                UCWCompatUtils.addChiselVariation(gn, stack);
+            }
+        }
+    }
 }
