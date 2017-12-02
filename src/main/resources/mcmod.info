@@ -1,0 +1,16 @@
+[
+{
+  "modid": "unlimitedchiselworks_botany",
+  "name": "Unlimited Chisel Works - Botany Compat",
+  "description": "flowers",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["asie"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
