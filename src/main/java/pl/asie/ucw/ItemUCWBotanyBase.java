@@ -57,15 +57,19 @@ public abstract class ItemUCWBotanyBase extends ItemUCWProxy {
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        NonNullList<ItemStack> base = NonNullList.create();
-        super.getSubItems(tab, base);
-        if (base.size() > 0) {
-            for (EnumFlowerColor color : EnumFlowerColor.VALUES) {
-                for (ItemStack stack : base) {
-                    stack = stack.copy();
-                    stack.setTagCompound(new NBTTagCompound());
-                    stack.getTagCompound().setInteger("meta", color.ordinal());
-                    items.add(stack);
+        if (!((BlockUCWBotanyBase) block).variantsRegistered) {
+            super.getSubItems(tab, items);
+        } else {
+            NonNullList<ItemStack> base = NonNullList.create();
+            super.getSubItems(tab, base);
+            if (base.size() > 0) {
+                for (EnumFlowerColor color : EnumFlowerColor.VALUES) {
+                    for (ItemStack stack : base) {
+                        stack = stack.copy();
+                        stack.setTagCompound(new NBTTagCompound());
+                        stack.getTagCompound().setInteger("meta", color.ordinal());
+                        items.add(stack);
+                    }
                 }
             }
         }

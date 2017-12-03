@@ -43,6 +43,7 @@ import java.util.List;
 
 public abstract class BlockUCWBotanyBase extends BlockUCWProxy implements IUCWCustomVariantHandler, ITileEntityProvider {
     protected static final List<BlockUCWBotanyBase> BLOCKS = new ArrayList<>();
+    protected boolean variantsRegistered = false;
     protected ThreadLocal<TileEntity> tiles = new ThreadLocal();
 
     public BlockUCWBotanyBase() {

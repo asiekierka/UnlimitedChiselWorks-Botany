@@ -30,6 +30,8 @@ import java.util.List;
 public class BlockUCWBotanyCeramic extends BlockUCWBotanyBase {
     @Override
     public void registerVariants(String groupName, IBlockState origState, List<ItemStack> stacks) {
+        variantsRegistered = false;
+
         List<ItemStack> grouping = new ArrayList<>();
         grouping.add(new ItemStack(origState.getBlock()));
         grouping.addAll(stacks);
@@ -47,5 +49,7 @@ public class BlockUCWBotanyCeramic extends BlockUCWBotanyBase {
                 UCWCompatUtils.addChiselVariation(gn, stack);
             }
         }
+
+        variantsRegistered = true;
     }
 }
