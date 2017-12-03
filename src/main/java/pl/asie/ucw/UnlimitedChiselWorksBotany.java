@@ -36,6 +36,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -66,11 +67,21 @@ import java.util.stream.Collectors;
 public class UnlimitedChiselWorksBotany {
 	@SidedProxy(serverSide = "pl.asie.ucw.ProxyBotanyCommon", clientSide = "pl.asie.ucw.ProxyBotanyClient")
 	public static ProxyBotanyCommon proxy;
+	public static boolean replaceBotanyGlassTexture;
+
+	private Configuration config;
 
 	@Mod.EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(proxy);
+
+		config = new Configuration(event.getSuggestedConfigurationFile());
+		replaceBotanyGlassTexture = config.getBoolean("replaceBotanyGlassTexture", "general", true, "Set to true to replace Botany's default Pigmented Glass texture to match vanilla/your resource pack's stained glass.");
+
+		if (config.hasChanged()) {
+			config.save();
+		}
 	}
 
 	@Mod.EventHandler

@@ -44,34 +44,36 @@ public class ProxyBotanyClient extends ProxyBotanyCommon {
 
     @SubscribeEvent
     public void onTextureStitchPre(TextureStitchEvent.Pre event) {
-        event.getMap().setTextureEntry(new TextureAtlasSprite("botany:blocks/stained") {
-            @Override
-            public boolean hasCustomLoader(IResourceManager manager, ResourceLocation location) {
-                return true;
-            }
-
-            @Override
-            public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
-                TextureAtlasSprite fromTex = textureGetter.apply(GLASS_WHITE_LOC);
-
-                setIconWidth(fromTex.getIconWidth());
-                setIconHeight(fromTex.getIconHeight());
-                int[][] data = UCWMagic.createBaseForColorMultiplier(fromTex, false);
-
-                clearFramesTextureData();
-                for (int i = 0; i < fromTex.getFrameCount(); i++) {
-                    int[][] pixels = new int[Minecraft.getMinecraft().gameSettings.mipmapLevels + 1][];
-                    pixels[0] = data[i];
-                    framesTextureData.add(pixels);
+        if (UnlimitedChiselWorksBotany.replaceBotanyGlassTexture) {
+            event.getMap().setTextureEntry(new TextureAtlasSprite("botany:blocks/stained") {
+                @Override
+                public boolean hasCustomLoader(IResourceManager manager, ResourceLocation location) {
+                    return true;
                 }
 
-                return false;
-            }
+                @Override
+                public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
+                    TextureAtlasSprite fromTex = textureGetter.apply(GLASS_WHITE_LOC);
 
-            @Override
-            public java.util.Collection<ResourceLocation> getDependencies() {
-                return ImmutableList.of(GLASS_WHITE_LOC);
-            }
-        });
+                    setIconWidth(fromTex.getIconWidth());
+                    setIconHeight(fromTex.getIconHeight());
+                    int[][] data = UCWMagic.createBaseForColorMultiplier(fromTex, false);
+
+                    clearFramesTextureData();
+                    for (int i = 0; i < fromTex.getFrameCount(); i++) {
+                        int[][] pixels = new int[Minecraft.getMinecraft().gameSettings.mipmapLevels + 1][];
+                        pixels[0] = data[i];
+                        framesTextureData.add(pixels);
+                    }
+
+                    return false;
+                }
+
+                @Override
+                public java.util.Collection<ResourceLocation> getDependencies() {
+                    return ImmutableList.of(GLASS_WHITE_LOC);
+                }
+            });
+        }
     }
 }
