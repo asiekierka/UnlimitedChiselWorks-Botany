@@ -20,7 +20,4 @@
 package pl.asie.ucw;
 
 public class ProxyBotanyCommon {
-    public void init() {
-
-    }
 }

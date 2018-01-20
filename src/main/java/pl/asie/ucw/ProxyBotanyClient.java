@@ -32,16 +32,6 @@ import java.util.function.Function;
 public class ProxyBotanyClient extends ProxyBotanyCommon {
     private static final ResourceLocation GLASS_WHITE_LOC = new ResourceLocation("minecraft", "blocks/glass_white");
 
-    public void init() {
-        super.init();
-        for (BlockUCWBotanyBase block : BlockUCWBotanyGlass.BLOCKS) {
-            Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(UCWBotanyGlassColorMultiplier.INSTANCE, block);
-        }
-        for (ItemUCWBotanyBase item : ItemUCWBotanyGlass.ITEMS) {
-            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(UCWBotanyGlassColorMultiplier.INSTANCE, item);
-        }
-    }
-
     @SubscribeEvent
     public void onTextureStitchPre(TextureStitchEvent.Pre event) {
         if (UnlimitedChiselWorksBotany.replaceBotanyGlassTexture) {

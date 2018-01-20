@@ -32,13 +32,11 @@ import net.minecraft.world.IBlockAccess;
 import javax.annotation.Nullable;
 
 public class UCWBotanyGlassColorMultiplier implements IBlockColor, IItemColor {
-    public static final UCWBotanyGlassColorMultiplier INSTANCE = new UCWBotanyGlassColorMultiplier();
-
-    private UCWBotanyGlassColorMultiplier() {
+    public UCWBotanyGlassColorMultiplier() {
 
     }
 
-    public int colorMultiplier(int meta) {
+    private int colorMultiplier(int meta) {
         return 0xFF000000 | EnumFlowerColor.get(meta).getFlowerColorAllele().getColor(false);
     }
 

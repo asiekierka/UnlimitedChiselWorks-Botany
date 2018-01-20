@@ -52,8 +52,9 @@ import team.chisel.api.carving.CarvingUtils;
 import team.chisel.api.carving.ICarvingGroup;
 import team.chisel.api.carving.ICarvingRegistry;
 import team.chisel.api.carving.ICarvingVariation;
-import team.chisel.client.ClientUtil;
+import team.chisel.client.util.ClientUtil;
 import team.chisel.common.util.NBTUtil;
+import team.chisel.common.util.SoundUtil;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -86,7 +87,6 @@ public class UnlimitedChiselWorksBotany {
 
 	@Mod.EventHandler
 	public void onInit(FMLInitializationEvent event) {
-		proxy.init();
 	}
 
 	private void damageItem(ItemStack stack, EntityPlayer player, EnumHand hand) {
@@ -111,7 +111,7 @@ public class UnlimitedChiselWorksBotany {
 	private boolean placeCeramicBlockWithEffects(World world, BlockPos pos, IBlockState currState, ItemStack stack, EntityPlayer player, ItemStack held) {
 		if (placeCeramicBlockIfDiffers(world, pos, currState, stack)) {
 			if (world.isRemote) {
-				ClientUtil.playSound(world, player, held, currState);
+				SoundUtil.playSound(player, held, currState);
 				ClientUtil.addDestroyEffects(world, pos, currState);
 			}
 			return true;
@@ -178,7 +178,7 @@ public class UnlimitedChiselWorksBotany {
 						return;
 					}
 
-					int meta = -1;
+					int meta;
 					TileEntity tile = event.getWorld().getTileEntity(event.getPos());
 					if (tile instanceof TileEntityMetadata) {
 						meta = ((TileEntityMetadata) tile).getTileMetadata();
